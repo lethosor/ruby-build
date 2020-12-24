@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    name: ${{ runner.os }} (${{ matrix.arch }}-bit)
+    name: ${{ matrix.os }} (${{ matrix.arch }}-bit)
     strategy:
       fail-fast: false
       matrix:
