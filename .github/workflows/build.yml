@@ -1,0 +1,21 @@
+name: Build Ruby
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    name: ${{ runner.os }} (${{ matrix.arch }}-bit)
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+        - ubuntu-20.04
+        arch:
+        - 64
+    env:
+      RUBY_TAG: v2_7_2
+    steps:
+    - name: Clone Ruby
+      run: |
+        git clone --depth 1 git://github.com/ruby/ruby -b "$RUBY_TAG"
