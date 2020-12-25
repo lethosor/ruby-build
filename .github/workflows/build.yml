@@ -13,6 +13,7 @@ jobs:
         - ubuntu-20.04
         arch:
         - 64
+        - 32
     env:
       RUBY_TAG: v2_7_2
     steps:
@@ -25,6 +26,7 @@ jobs:
       run: |
         git clone --depth 1 git://github.com/ruby/ruby -b "$RUBY_TAG"
         echo "RUBY_SOURCE=$(pwd)/ruby" >> $GITHUB_ENV
+        echo "RUBY_ARCH=${{ matrix.arch }}" >> $GITHUB_ENV
     - name: Configure
       run: ./scripts/configure.bash
     - name: Build
