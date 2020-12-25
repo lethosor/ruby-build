@@ -31,3 +31,7 @@ jobs:
       run: ./scripts/build.bash
     - name: Test
       run: ./scripts/test.bash
+    - name: Package
+      run: |
+        mkdir ruby-package
+        ./scripts/package.bash "$(pwd)/ruby-package"
