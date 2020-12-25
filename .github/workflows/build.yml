@@ -14,7 +14,7 @@ jobs:
         arch:
         - 64
     env:
-      RUBY_TAG: v2_7_2
+      RUBY_TAG: v2_0_0_648
     steps:
     - name: Set up environment
       run: |
