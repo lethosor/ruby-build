@@ -32,6 +32,13 @@ jobs:
     - name: Test
       run: ./scripts/test.bash
     - name: Package
+      id: package
       run: |
         mkdir ruby-package
         ./scripts/package.bash "$(pwd)/ruby-package"
+        echo "::set-output name=dll_path::$(ls ruby-package/*)"
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: libruby-${{ matrix.os }}-${{ matrix.arch }}
+        path: ${{ steps.package.outputs.dll_path }}
