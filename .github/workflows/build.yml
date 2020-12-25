@@ -15,8 +15,10 @@ jobs:
         - 64
     env:
       RUBY_TAG: v2_7_2
-      RUBY_PREFIX: "$HOME/ruby-install"
     steps:
+    - name: Set up environment
+      run: |
+        echo "RUBY_PREFIX=$HOME/ruby-install" >> $GITHUB_ENV
     - name: Clone Ruby
       run: |
         git clone --depth 1 git://github.com/ruby/ruby -b "$RUBY_TAG"
