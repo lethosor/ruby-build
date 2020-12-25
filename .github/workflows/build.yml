@@ -26,10 +26,10 @@ jobs:
       working-directory: ruby
       run: |
         autoconf
-        ./configure --prefix="$RUBY_PREFIX"
+        ./configure --prefix="$RUBY_PREFIX" --enable-shared
     - name: Build
       working-directory: ruby
-      run: make -j3
+      run: make -j3 dll
     - name: Test
       working-directory: ruby
       run: make test
