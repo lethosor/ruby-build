@@ -30,7 +30,7 @@ jobs:
       run: make -j3
     - name: Test
       working-directory: ruby
-      run: make check
+      run: make test
     - name: Install
       working-directory: ruby
       run: |
