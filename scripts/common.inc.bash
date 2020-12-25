@@ -13,8 +13,8 @@ cd_build() {
 }
 
 if command_exists tput; then
-    COLOR_GREEN="$(tput setaf 2)$(tput bold)"
-    COLOR_RESET="$(tput sgr0)"
+    COLOR_GREEN="$(tput setaf 2 2>/dev/null)$(tput bold 2>/dev/null)"
+    COLOR_RESET="$(tput sgr0 2>/dev/null)"
 else
     COLOR_GREEN=""
     COLOR_RESET=""

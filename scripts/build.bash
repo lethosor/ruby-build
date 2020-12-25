@@ -8,7 +8,7 @@ cd_build
 
 JOBS=3
 if command_exists nproc; then
-    JOBS="$(nproc)"
+    JOBS=$(("$(nproc)" + 1))
 fi
 
 echo_run make -j"${JOBS}" dll
