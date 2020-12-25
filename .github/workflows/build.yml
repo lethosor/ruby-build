@@ -33,8 +33,3 @@ jobs:
     - name: Test
       working-directory: ruby
       run: make test
-    - name: Install
-      working-directory: ruby
-      run: |
-        make install
-        find "$RUBY_PREFIX"
