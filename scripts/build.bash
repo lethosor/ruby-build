@@ -17,4 +17,4 @@ else
     export CFLAGS="$CFLAGS -m64"
 fi
 
-echo_run make -j"${JOBS}" dll
+echo_run make -j"${JOBS}" V=1 dll
