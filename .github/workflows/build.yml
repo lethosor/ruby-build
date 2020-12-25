@@ -19,17 +19,15 @@ jobs:
     - name: Set up environment
       run: |
         echo "RUBY_PREFIX=$HOME/ruby-install" >> $GITHUB_ENV
+    - name: Clone ruby-build
+      uses: actions/checkout@v2
     - name: Clone Ruby
       run: |
         git clone --depth 1 git://github.com/ruby/ruby -b "$RUBY_TAG"
+        echo "RUBY_SOURCE=$(pwd)/ruby" >> $GITHUB_ENV
     - name: Configure
-      working-directory: ruby
-      run: |
-        autoconf
-        ./configure --prefix="$RUBY_PREFIX" --enable-shared
+      run: ./scripts/configure.bash
     - name: Build
-      working-directory: ruby
-      run: make -j3 dll
+      run: ./scripts/build.bash
     - name: Test
-      working-directory: ruby
-      run: make test
+      run: ./scripts/test.bash
