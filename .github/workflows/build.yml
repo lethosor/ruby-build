@@ -15,7 +15,24 @@ jobs:
         - 64
     env:
       RUBY_TAG: v2_7_2
+      RUBY_PREFIX: "$HOME/ruby-install"
     steps:
     - name: Clone Ruby
       run: |
         git clone --depth 1 git://github.com/ruby/ruby -b "$RUBY_TAG"
+    - name: Configure
+      working-directory: ruby
+      run: |
+        autoconf
+        ./configure --prefix="$RUBY_PREFIX"
+    - name: Build
+      working-directory: ruby
+      run: make -j3
+    - name: Test
+      working-directory: ruby
+      run: make check
+    - name: Install
+      working-directory: ruby
+      run: |
+        make install
+        find "$RUBY_PREFIX"
