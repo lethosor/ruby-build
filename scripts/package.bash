@@ -15,9 +15,13 @@ elif is_macos; then
     dll="$(readlink libruby.dylib)"
     out="${dll}.gz"
     echo_run gzip -kv "$dll"
+elif is_windows; then
+    dll=x*-vcruntime*-ruby*.dll
+    out="${dll}.gz"
+    echo_run gzip -kv "$dll"
 else
     echo "unsupported OS: ${os}"
-    ls -l
+    echo_run ls -l
     exit 1
 fi
 
