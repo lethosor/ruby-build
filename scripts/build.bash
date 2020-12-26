@@ -14,6 +14,6 @@ fi
 if is_unix; then
     echo_run make -j"${JOBS}" V=1 dll
 else
-    echo_run nmake config miniruby
+    echo_run nmake config .rbconfig.time miniruby
     echo_run nmake dll
 fi
