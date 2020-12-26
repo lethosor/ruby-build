@@ -13,6 +13,7 @@ jobs:
         - ubuntu-20.04
         arch:
         - 64
+        - 32
     env:
       RUBY_TAG: v2_0_0_648
     steps:
@@ -25,8 +26,18 @@ jobs:
       run: |
         git clone --depth 1 git://github.com/ruby/ruby -b "$RUBY_TAG"
         echo "RUBY_SOURCE=$(pwd)/ruby" >> $GITHUB_ENV
+        echo "RUBY_ARCH=${{ matrix.arch }}" >> $GITHUB_ENV
+    - name: Install dependencies
+      run: ./scripts/install_deps.bash
     - name: Configure
+      id: configure
       run: ./scripts/configure.bash
+    - name: Upload config.log
+      if: ${{ failure() && steps.configure.outcome == 'failure' }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: config-${{ matrix.os }}-${{ matrix.arch }}.log
+        path: ruby/config.log
     - name: Build
       run: ./scripts/build.bash
     - name: Test
