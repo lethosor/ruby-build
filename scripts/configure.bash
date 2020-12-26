@@ -23,8 +23,6 @@ elif [[ "$os" = "Darwin" ]]; then
     export CXX=g++-10
 elif [[ "$os" =~ "MINGW" ]]; then
     windows=1
-    vcvars="/c/Program Files (x86)/Microsoft Visual Studio 14.0/VC/vcvarsall.bat"
-    cat "$vcvars"
 else
     echo "Unsupported OS: ${os}"
     exit 1
@@ -34,6 +32,5 @@ if [[ -z "$windows" ]]; then
     echo_run autoconf
     echo_run ./configure --prefix="$RUBY_PREFIX" --enable-shared
 else
-    echo_run "$vcvars" amd64
     echo_run ./win32/configure.bat
 fi
