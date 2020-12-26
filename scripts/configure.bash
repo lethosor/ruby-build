@@ -24,7 +24,7 @@ fi
 
 if is_unix; then
     echo_run autoconf
-    echo_run ./configure --prefix="$RUBY_PREFIX" --enable-shared
+    echo_run ./configure --prefix="$RUBY_PREFIX" --disable-rubygems --enable-shared
 else
-    echo_run ./win32/configure.bat --enable-shared
+    echo_run ./win32/configure.bat --disable-rubygems
 fi
