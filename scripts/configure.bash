@@ -6,6 +6,8 @@ cd "$(dirname "$0")"
 set -e
 cd_build
 
+export CFLAGS="-Os"
+
 if [[ "$RUBY_ARCH" = "32" ]]; then
     export CFLAGS="$CFLAGS -m32"
     export ASFLAGS="$ASFLAGS -m32"
