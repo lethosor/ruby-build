@@ -16,7 +16,8 @@ elif [[ "$os" = "Darwin" ]]; then
     out="${dll}.gz"
     echo_run gzip -kv "$dll"
 else
-    echo "unsupported OS: $(os)"
+    echo "unsupported OS: ${os}"
+    ls -l
     exit 1
 fi
 
