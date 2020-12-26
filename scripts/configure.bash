@@ -23,6 +23,7 @@ elif [[ "$os" = "Darwin" ]]; then
     export CXX=g++-10
 elif [[ "$os" =~ "MINGW" ]]; then
     windows=1
+    find /c/"Program Files"*/*"Visual Studio"* -name "vcvars*.bat"
 else
     echo "Unsupported OS: ${os}"
     exit 1
