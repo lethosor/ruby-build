@@ -12,7 +12,6 @@ if [[ "$os" = "Linux" ]]; then
     out="${dll}.gz"
     echo_run gzip -kv "$dll"
 elif [[ "$os" = "Darwin" ]]; then
-    ls -l libruby*
     dll="$(readlink libruby.dylib)"
     out="${dll}.gz"
     echo_run gzip -kv "$dll"

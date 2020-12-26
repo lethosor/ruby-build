@@ -16,5 +16,10 @@ else
     export ASFLAGS="$ASFLAGS -m64"
 fi
 
+os="$(uname)"
+if [[ "$os" = "Darwin" ]]; then
+    export CFLAGS="$CFLAGS -mmacosx-version-min=10.6"
+fi
+
 echo_run autoconf
 echo_run ./configure --prefix="$RUBY_PREFIX" --enable-shared
