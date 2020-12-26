@@ -26,6 +26,11 @@ jobs:
         echo "RUBY_PREFIX=$HOME/ruby-install" >> $GITHUB_ENV
     - name: Clone ruby-build
       uses: actions/checkout@v2
+    - name: Fetch Ruby cache
+      uses: actions/cache@v2
+      with:
+        path: ruby*.tar.gz
+        key: ${{ env.RUBY_VERSION }}-${{ hashFiles('scripts/download.bash') }}
     - name: Download Ruby
       run: |
         RUBY_SOURCE="$(pwd)/ruby"
