@@ -32,5 +32,6 @@ if [[ -z "$windows" ]]; then
     echo_run autoconf
     echo_run ./configure --prefix="$RUBY_PREFIX" --enable-shared
 else
+    echo $PATH
     echo_run ./win32/configure.bat
 fi
