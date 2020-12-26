@@ -6,6 +6,8 @@ cd "$(dirname "$0")"
 set -e
 cd_build
 
+export CFLAGS="-Os"
+
 if [[ "$RUBY_ARCH" = "32" ]]; then
     export CFLAGS="$CFLAGS -m32"
     export ASFLAGS="$ASFLAGS -m32"
@@ -15,4 +17,4 @@ else
 fi
 
 echo_run autoconf
-echo_run ./configure --prefix="$RUBY_PREFIX" --enable-shared debugflags="" optflags="-Os"
+echo_run ./configure --prefix="$RUBY_PREFIX" --enable-shared
