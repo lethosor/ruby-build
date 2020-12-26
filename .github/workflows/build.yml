@@ -27,17 +27,23 @@ jobs:
       run:
         shell: bash
     env:
-      RUBY_TAG: v2_7_2
+      RUBY_VERSION: 2.7.2
     steps:
     - name: Set up environment
       run: |
         echo "RUBY_PREFIX=$HOME/ruby-install" >> $GITHUB_ENV
     - name: Clone ruby-build
       uses: actions/checkout@v2
-    - name: Clone Ruby
+    - name: Fetch Ruby cache
+      uses: actions/cache@v2
+      with:
+        path: ruby*.tar.gz
+        key: ${{ env.RUBY_VERSION }}-${{ hashFiles('scripts/download.bash') }}
+    - name: Download Ruby
       run: |
-        git clone --depth 1 git://github.com/ruby/ruby -b "$RUBY_TAG"
-        echo "RUBY_SOURCE=$(pwd)/ruby" >> $GITHUB_ENV
+        RUBY_SOURCE="$(pwd)/ruby"
+        ./scripts/download.bash "$RUBY_VERSION" "$RUBY_SOURCE"
+        echo "RUBY_SOURCE=$RUBY_SOURCE" >> $GITHUB_ENV
         echo "RUBY_ARCH=${{ matrix.arch }}" >> $GITHUB_ENV
     - name: Set up environment (Windows-specific)
       if: ${{ startswith(matrix.os, 'windows') }}
