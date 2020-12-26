@@ -39,6 +39,9 @@ jobs:
         git clone --depth 1 git://github.com/ruby/ruby -b "$RUBY_TAG"
         echo "RUBY_SOURCE=$(pwd)/ruby" >> $GITHUB_ENV
         echo "RUBY_ARCH=${{ matrix.arch }}" >> $GITHUB_ENV
+    - name: Set up environment (Windows-specific)
+      if: ${{ startswith(matrix.os, 'windows') }}
+      run: scripts/windows_setup_vcvars.bat
     - name: Install dependencies
       run: ./scripts/install_deps.bash
     - name: Configure
