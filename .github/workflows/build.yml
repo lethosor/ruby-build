@@ -47,10 +47,7 @@ jobs:
         echo "RUBY_ARCH=${{ matrix.arch }}" >> $GITHUB_ENV
     - name: Set up environment (Windows-specific)
       if: ${{ startswith(matrix.os, 'windows') }}
-      run: |
-        scripts/windows_setup_vcvars.bat
-        curl -LO 'https://curl.haxx.se/ca/cacert.pem'
-        echo "SSL_CERT_FILE=$PWD/cacert.pem" >> $GITHUB_ENV
+      run: ./scripts/windows_setup_vcvars.bat
     - name: Install dependencies
       run: ./scripts/install_deps.bash
     - name: Configure
