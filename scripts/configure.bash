@@ -21,10 +21,11 @@ if [[ "$os" = "Linux" ]]; then
 elif [[ "$os" = "Darwin" ]]; then
     export CC=gcc-10
     export CXX=g++-10
-elif [[ "$os" = "MINGW" ]]; then
+elif [[ "$os" =~ "MINGW" ]]; then
     windows=1
 else
     echo "Unsupported OS: ${os}"
+    exit 1
 fi
 
 if [[ -z "$windows" ]]; then
