@@ -6,14 +6,20 @@ cd "$(dirname "$0")"
 set -e
 cd_build
 
+os="$(uname)"
 export CFLAGS="-Os"
 
-if [[ "$RUBY_ARCH" = "32" ]]; then
-    export CFLAGS="$CFLAGS -m32"
-    export ASFLAGS="$ASFLAGS -m32"
-else
-    export CFLAGS="$CFLAGS -m64"
-    export ASFLAGS="$ASFLAGS -m64"
+if [[ "$os" = "Linux" ]]; then
+    if [[ "$RUBY_ARCH" = "32" ]]; then
+        export CFLAGS="$CFLAGS -m32"
+        export ASFLAGS="$ASFLAGS -m32"
+    else
+        export CFLAGS="$CFLAGS -m64"
+        export ASFLAGS="$ASFLAGS -m64"
+    fi
+elif [[ "$os" = "Darwin" ]]; then
+    export CC=gcc-10
+    export CXX=g++-10
 fi
 
 echo_run autoconf
