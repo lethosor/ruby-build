@@ -27,6 +27,8 @@ jobs:
         git clone --depth 1 git://github.com/ruby/ruby -b "$RUBY_TAG"
         echo "RUBY_SOURCE=$(pwd)/ruby" >> $GITHUB_ENV
         echo "RUBY_ARCH=${{ matrix.arch }}" >> $GITHUB_ENV
+    - name: Install dependencies
+      run: ./scripts/install_deps.bash
     - name: Configure
       id: configure
       run: ./scripts/configure.bash
@@ -35,7 +37,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: config.log
-        path: ruby/config.log
+        path: ruby/config-${{ matrix.os }}-${{ matrix.arch }}.log
     - name: Build
       run: ./scripts/build.bash
     - name: Test
