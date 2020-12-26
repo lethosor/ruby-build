@@ -8,8 +8,10 @@ cd_build
 
 if [[ "$RUBY_ARCH" = "32" ]]; then
     export CFLAGS="$CFLAGS -m32"
+    export ASFLAGS="$ASFLAGS -m32"
 else
     export CFLAGS="$CFLAGS -m64"
+    export ASFLAGS="$ASFLAGS -m64"
 fi
 
 echo_run autoconf
