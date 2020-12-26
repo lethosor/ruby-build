@@ -19,17 +19,18 @@ jobs:
           - os: macos-10.15
             arch: 32
     env:
-      RUBY_TAG: v2_7_2
+      RUBY_VERSION: 2.7.2
     steps:
     - name: Set up environment
       run: |
         echo "RUBY_PREFIX=$HOME/ruby-install" >> $GITHUB_ENV
     - name: Clone ruby-build
       uses: actions/checkout@v2
-    - name: Clone Ruby
+    - name: Download Ruby
       run: |
-        git clone --depth 1 git://github.com/ruby/ruby -b "$RUBY_TAG"
-        echo "RUBY_SOURCE=$(pwd)/ruby" >> $GITHUB_ENV
+        RUBY_SOURCE="$(pwd)/ruby"
+        ./scripts/download.bash "$RUBY_VERSION" "$RUBY_SOURCE"
+        echo "RUBY_SOURCE=$RUBY_SOURCE" >> $GITHUB_ENV
         echo "RUBY_ARCH=${{ matrix.arch }}" >> $GITHUB_ENV
     - name: Install dependencies
       run: ./scripts/install_deps.bash
