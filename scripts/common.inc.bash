@@ -24,3 +24,11 @@ echo_run() {
     echo "${COLOR_GREEN}==> $@${COLOR_RESET}"
     "$@"
 }
+
+get_cflags() {
+    local cflags=""
+    if [[ "$RUBY_ARCH" = "32" ]]; then
+        cflags="$cflags -m32"
+    fi
+    echo "$cflags"
+}

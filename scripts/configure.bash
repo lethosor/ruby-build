@@ -7,4 +7,4 @@ set -e
 cd_build
 
 echo_run autoconf
-echo_run ./configure --prefix="$RUBY_PREFIX" --enable-shared
+echo_run ./configure --prefix="$RUBY_PREFIX" --enable-shared cflags="$(get_cflags)"
