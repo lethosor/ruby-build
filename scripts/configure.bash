@@ -19,6 +19,8 @@ fi
 os="$(uname)"
 if [[ "$os" = "Darwin" ]]; then
     export CFLAGS="$CFLAGS -mmacosx-version-min=10.6"
+    export CC=gcc-10
+    export CXX=g++-10
 fi
 
 echo_run autoconf
