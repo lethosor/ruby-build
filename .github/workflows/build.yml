@@ -36,8 +36,8 @@ jobs:
       if: ${{ failure() && steps.configure.outcome == 'failure' }}
       uses: actions/upload-artifact@v2
       with:
-        name: config.log
-        path: ruby/config-${{ matrix.os }}-${{ matrix.arch }}.log
+        name: config-${{ matrix.os }}-${{ matrix.arch }}.log
+        path: ruby/config.log
     - name: Build
       run: ./scripts/build.bash
     - name: Test
