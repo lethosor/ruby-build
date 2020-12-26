@@ -18,7 +18,6 @@ if [[ "$os" = "Linux" ]]; then
         export ASFLAGS="$ASFLAGS -m64"
     fi
 elif [[ "$os" = "Darwin" ]]; then
-    export CFLAGS="$CFLAGS -mmacosx-version-min=10.6"
     export CC=gcc-10
     export CXX=g++-10
 fi
