@@ -8,7 +8,6 @@ cd_build
 
 os="$(uname)"
 export CFLAGS="-Os"
-windows=
 
 if is_linux; then
     if [[ "$RUBY_ARCH" = "32" ]]; then
