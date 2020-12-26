@@ -19,10 +19,6 @@ jobs:
         exclude:
           - os: macos-10.15
             arch: 32
-          - os: macos-10.15
-          - os: ubuntu-20.04
-          - os: windows-2019
-            arch: 32
     defaults:
       run:
         shell: bash
