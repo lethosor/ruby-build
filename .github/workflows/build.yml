@@ -31,7 +31,7 @@ jobs:
       id: configure
       run: ./scripts/configure.bash
     - name: Upload config.log
-      if: ${{ steps.configure.outcome == 'failure' }}
+      if: ${{ failure() && steps.configure.outcome == 'failure' }}
       uses: actions/upload-artifact@v2
       with:
         name: config.log
