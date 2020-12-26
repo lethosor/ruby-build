@@ -11,4 +11,4 @@ if command_exists nproc; then
     JOBS=$(("$(nproc)" + 1))
 fi
 
-echo_run make -j"${JOBS}" V=1 CFLAGS="$(get_cflags)" dll
+echo_run make -j"${JOBS}" V=1 dll
