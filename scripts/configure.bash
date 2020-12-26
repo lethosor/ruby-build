@@ -6,18 +6,18 @@ cd "$(dirname "$0")"
 set -e
 cd_build
 
+os="$(uname)"
 export CFLAGS="-Os"
 
-if [[ "$RUBY_ARCH" = "32" ]]; then
-    export CFLAGS="$CFLAGS -m32"
-    export ASFLAGS="$ASFLAGS -m32"
-else
-    export CFLAGS="$CFLAGS -m64"
-    export ASFLAGS="$ASFLAGS -m64"
-fi
-
-os="$(uname)"
-if [[ "$os" = "Darwin" ]]; then
+if [[ "$os" = "Linux" ]]; then
+    if [[ "$RUBY_ARCH" = "32" ]]; then
+        export CFLAGS="$CFLAGS -m32"
+        export ASFLAGS="$ASFLAGS -m32"
+    else
+        export CFLAGS="$CFLAGS -m64"
+        export ASFLAGS="$ASFLAGS -m64"
+    fi
+elif [[ "$os" = "Darwin" ]]; then
     export CFLAGS="$CFLAGS -mmacosx-version-min=10.6"
     export CC=gcc-10
     export CXX=g++-10
