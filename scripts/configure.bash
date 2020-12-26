@@ -15,4 +15,4 @@ else
 fi
 
 echo_run autoconf
-echo_run ./configure --prefix="$RUBY_PREFIX" --enable-shared
+echo_run ./configure --prefix="$RUBY_PREFIX" --enable-shared debugflags="" optflags="-Os"
