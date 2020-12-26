@@ -16,5 +16,5 @@ mkdir -p "$dest"
 version_first2="$(echo "$version" | cut -d . -f 1-2)"
 dest_tar="ruby-${version}.tar.gz"
 
-wget --continue "https://cache.ruby-lang.org/pub/ruby/${version_first2}/ruby-${version}.tar.gz" --output-document "${dest_tar}"
+curl "https://cache.ruby-lang.org/pub/ruby/${version_first2}/ruby-${version}.tar.gz" --continue-at - --output "${dest_tar}"
 tar xf "${dest_tar}" -C "${dest}" --strip-components 1

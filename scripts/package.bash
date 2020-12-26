@@ -6,28 +6,34 @@ cd "$(dirname "$0")"
 set -e
 cd_build
 
+destdir="$1"
+if [[ -z "$destdir" ]]; then
+    echo "usage: $0 DESTDIR"
+    exit 2
+fi
+echo_run mkdir -p "$destdir"
+
 os="$(uname)"
-if [[ "$os" = "Linux" ]]; then
+if is_linux; then
     dll="$(readlink libruby.so)"
-    out="${dll}.gz"
-    echo_run gzip -kv "$dll"
-elif [[ "$os" = "Darwin" ]]; then
+    suffix=so
+elif is_macos; then
     dll="$(readlink libruby.dylib)"
-    out="${dll}.gz"
-    echo_run gzip -kv "$dll"
+    suffix=dylib
+elif is_windows; then
+    dll="$(ls x*-vcruntime*-ruby*.dll | head -n1)"
+    suffix=dll
 else
-    echo "unsupported OS: $(os)"
+    echo "unsupported OS: ${os}"
+    echo_run ls -l
     exit 1
 fi
 
-du -h "$dll"
-du -h "$out"
+outname="libruby-${RUBY_VERSION//./-}.${suffix}"
+out="${destdir}/${outname}"
 
-if [[ -n "$1" ]]; then
-    if [[ -d "$1" ]]; then
-        echo_run cp "$out" "$1"
-    else
-        echo "output directory not a directory: $1"
-        exit 1
-    fi
-fi
+echo_run cp "$dll" "$out"
+echo_run gzip -v "$out"
+
+du -h "$dll"
+du -h "${out}.gz"

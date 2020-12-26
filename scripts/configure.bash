@@ -9,7 +9,7 @@ cd_build
 os="$(uname)"
 export CFLAGS="-Os"
 
-if [[ "$os" = "Linux" ]]; then
+if is_linux; then
     if [[ "$RUBY_ARCH" = "32" ]]; then
         export CFLAGS="$CFLAGS -m32"
         export ASFLAGS="$ASFLAGS -m32"
@@ -17,10 +17,14 @@ if [[ "$os" = "Linux" ]]; then
         export CFLAGS="$CFLAGS -m64"
         export ASFLAGS="$ASFLAGS -m64"
     fi
-elif [[ "$os" = "Darwin" ]]; then
+elif is_macos; then
     export CC=gcc-10
     export CXX=g++-10
 fi
 
-echo_run autoconf
-echo_run ./configure --prefix="$RUBY_PREFIX" --enable-shared
+if is_unix; then
+    echo_run autoconf
+    echo_run ./configure --prefix="$RUBY_PREFIX" --disable-rubygems --enable-shared
+else
+    echo_run ./win32/configure.bat --disable-rubygems
+fi

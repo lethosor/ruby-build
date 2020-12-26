@@ -12,12 +12,18 @@ jobs:
         os:
         - ubuntu-20.04
         - macos-10.15
+        - windows-2019
         arch:
         - 64
         - 32
         exclude:
           - os: macos-10.15
             arch: 32
+          - os: windows-2019
+            arch: 32
+    defaults:
+      run:
+        shell: bash
     env:
       RUBY_VERSION: 2.7.2
     steps:
@@ -37,6 +43,9 @@ jobs:
         ./scripts/download.bash "$RUBY_VERSION" "$RUBY_SOURCE"
         echo "RUBY_SOURCE=$RUBY_SOURCE" >> $GITHUB_ENV
         echo "RUBY_ARCH=${{ matrix.arch }}" >> $GITHUB_ENV
+    - name: Set up environment (Windows-specific)
+      if: ${{ startswith(matrix.os, 'windows') }}
+      run: ./scripts/windows_setup_vcvars.bat
     - name: Install dependencies
       run: ./scripts/install_deps.bash
     - name: Configure

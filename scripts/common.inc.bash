@@ -24,3 +24,19 @@ echo_run() {
     echo "${COLOR_GREEN}==> $@${COLOR_RESET}"
     "$@"
 }
+
+is_linux() {
+    [[ "$(uname)" = Linux ]]
+}
+
+is_macos() {
+    [[ "$(uname)" = Darwin ]]
+}
+
+is_windows() {
+    [[ "$(uname)" =~ ^(MINGW|MSYS) ]]
+}
+
+is_unix() {
+    is_linux || is_macos
+}
