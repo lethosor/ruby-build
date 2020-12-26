@@ -10,7 +10,7 @@ os="$(uname)"
 export CFLAGS="-Os"
 windows=
 
-if [[ "$os" = "Linux" ]]; then
+if is_linux; then
     if [[ "$RUBY_ARCH" = "32" ]]; then
         export CFLAGS="$CFLAGS -m32"
         export ASFLAGS="$ASFLAGS -m32"
@@ -18,20 +18,14 @@ if [[ "$os" = "Linux" ]]; then
         export CFLAGS="$CFLAGS -m64"
         export ASFLAGS="$ASFLAGS -m64"
     fi
-elif [[ "$os" = "Darwin" ]]; then
+elif is_macos; then
     export CC=gcc-10
     export CXX=g++-10
-elif [[ "$os" =~ "MINGW" ]] || [[ "$os" =~ "MSYS" ]]; then
-    windows=1
-else
-    echo "Unsupported OS: ${os}"
-    exit 1
 fi
 
-if [[ -z "$windows" ]]; then
+if is_unix; then
     echo_run autoconf
     echo_run ./configure --prefix="$RUBY_PREFIX" --enable-shared
 else
-    echo $PATH
     echo_run ./win32/configure.bat
 fi

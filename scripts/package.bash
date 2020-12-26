@@ -7,11 +7,11 @@ set -e
 cd_build
 
 os="$(uname)"
-if [[ "$os" = "Linux" ]]; then
+if is_linux; then
     dll="$(readlink libruby.so)"
     out="${dll}.gz"
     echo_run gzip -kv "$dll"
-elif [[ "$os" = "Darwin" ]]; then
+elif is_macos; then
     dll="$(readlink libruby.dylib)"
     out="${dll}.gz"
     echo_run gzip -kv "$dll"

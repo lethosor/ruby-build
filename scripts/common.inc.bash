@@ -24,3 +24,20 @@ echo_run() {
     echo "${COLOR_GREEN}==> $@${COLOR_RESET}"
     "$@"
 }
+
+os="$(uname)"
+alias is_linux=false
+alias is_macos=false
+alias is_windows=false
+alias is_unix='is_linux || is_macos'
+
+if [[ "$os" = Linux ]]; then
+    alias is_linux=true
+elif [[ "$os" = Darwin ]]; then
+    alias is_macos=true
+elif [[ "$os" =~ ^(MINGW|MSYS) ]]; then
+    alias is_windows=true
+else
+    echo "Unrecognized OS: ${os}"
+    exit 1
+fi
