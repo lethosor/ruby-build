@@ -26,5 +26,7 @@ if is_unix; then
     echo_run autoconf
     echo_run ./configure --prefix="$RUBY_PREFIX" --enable-shared
 else
-    echo_run ./win32/configure.bat
+    echo_run ls -l
+    echo_run ./win32/configure.bat --enable-shared
+    echo_run ls -l
 fi
