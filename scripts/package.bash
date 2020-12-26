@@ -11,6 +11,11 @@ if [[ "$os" = "Linux" ]]; then
     dll="$(readlink libruby.so)"
     out="${dll}.gz"
     echo_run gzip -kv "$dll"
+elif [[ "$os" = "Darwin" ]]; then
+    ls -l libruby*
+    dll="$(readlink libruby.dylib)"
+    out="${dll}.gz"
+    echo_run gzip -kv "$dll"
 else
     echo "unsupported OS: $(os)"
     exit 1
