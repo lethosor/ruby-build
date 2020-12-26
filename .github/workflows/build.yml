@@ -28,7 +28,14 @@ jobs:
         echo "RUBY_SOURCE=$(pwd)/ruby" >> $GITHUB_ENV
         echo "RUBY_ARCH=${{ matrix.arch }}" >> $GITHUB_ENV
     - name: Configure
+      id: configure
       run: ./scripts/configure.bash
+    - name: Upload config.log
+      if: ${{ steps.configure.outcome == 'failure' }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: config.log
+        path: ruby/config.log
     - name: Build
       run: ./scripts/build.bash
     - name: Test
