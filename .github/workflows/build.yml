@@ -50,9 +50,12 @@ jobs:
         RUBY_SOURCE="$(pwd)/ruby"
         ./scripts/download.bash "$RUBY_VERSION" "$RUBY_SOURCE"
         echo "RUBY_SOURCE=$RUBY_SOURCE" >> $GITHUB_ENV
-    - name: Set up environment (Windows-specific)
+    - name: Set up MSVC (Windows-specific)
       if: ${{ startswith(matrix.os, 'windows') }}
-      run: ./scripts/windows_setup_vcvars.bat
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: ${{ env.RUBY_ARCH_VCVARS }}
+        toolset: "14.0"
     - name: Install dependencies
       run: ./scripts/install_deps.bash
     - name: Configure
