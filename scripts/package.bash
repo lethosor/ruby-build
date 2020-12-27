@@ -21,10 +21,16 @@ elif is_macos; then
     dll="$(readlink libruby.dylib)"
     suffix=dylib
 elif is_windows; then
-    dll="$(ls x*-vcruntime*-ruby*.dll | head -n1)"
+    dll="$(ls *vcruntime*-ruby*.dll | head -n1)"
     suffix=dll
 else
     echo "unsupported OS: ${os}"
+    echo_run ls -l
+    exit 1
+fi
+
+if [[ ! -f "$dll" ]]; then
+    echo "ruby library not found: ${dll}"
     echo_run ls -l
     exit 1
 fi
