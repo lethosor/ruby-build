@@ -30,6 +30,8 @@ jobs:
     - name: Set up environment
       run: |
         echo "RUBY_PREFIX=$HOME/ruby-install" >> $GITHUB_ENV
+        echo "GHA_OS_TAG=$(echo '${{ runner.os }}' | tr '[[:upper:]]' '[[:lower:]]')${{ matrix.arch }}" >> $GITHUB_ENV
+        echo "GHA_RUBY_TAG=${RUBY_VERSION//./_}" >> $GITHUB_ENV
     - name: Clone ruby-build
       uses: actions/checkout@v2
     - name: Fetch Ruby cache
@@ -55,7 +57,7 @@ jobs:
       if: ${{ failure() && steps.configure.outcome == 'failure' }}
       uses: actions/upload-artifact@v2
       with:
-        name: config-${{ matrix.os }}-${{ matrix.arch }}.log
+        name: config-${{ env.GHA_OS_TAG }}.log
         path: ruby/config.log
     - name: Build
       run: ./scripts/build.bash
@@ -70,5 +72,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: libruby-${{ matrix.os }}-${{ matrix.arch }}
+        name: libruby-${{ env.GHA_RUBY_TAG }}-${{ env.GHA_OS_TAG }}
         path: ${{ steps.package.outputs.dll_path }}
