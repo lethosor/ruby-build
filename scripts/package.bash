@@ -29,6 +29,12 @@ else
     exit 1
 fi
 
+if [[ ! -f "$dll" ]]; then
+    echo "ruby library not found: ${dll}"
+    echo_run ls -l
+    exit 1
+fi
+
 outname="libruby-${RUBY_VERSION//./-}.${suffix}"
 out="${destdir}/${outname}"
 
