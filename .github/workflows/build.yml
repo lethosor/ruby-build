@@ -29,7 +29,15 @@ jobs:
     steps:
     - name: Set up environment
       run: |
-        echo "RUBY_PREFIX=$HOME/ruby-install" >> $GITHUB_ENV
+        echo "RUBY_PREFIX=${HOME}/ruby-install" >> $GITHUB_ENV
+        RUBY_ARCH=${{ matrix.arch }}
+        if [[ "${RUBY_ARCH}" = 32 ]]; then
+          RUBY_ARCH_VCVARS=x86
+        else
+          RUBY_ARCH_VCVARS=amd64
+        fi
+        echo "RUBY_ARCH=${RUBY_ARCH}" >> $GITHUB_ENV
+        echo "RUBY_ARCH_VCVARS=${RUBY_ARCH_VCVARS}" >> $GITHUB_ENV
         echo "GHA_OS_TAG=$(echo '${{ runner.os }}' | tr '[[:upper:]]' '[[:lower:]]')${{ matrix.arch }}" >> $GITHUB_ENV
         echo "GHA_RUBY_TAG=${RUBY_VERSION//./_}" >> $GITHUB_ENV
     - name: Clone ruby-build
@@ -44,7 +52,6 @@ jobs:
         RUBY_SOURCE="$(pwd)/ruby"
         ./scripts/download.bash "$RUBY_VERSION" "$RUBY_SOURCE"
         echo "RUBY_SOURCE=$RUBY_SOURCE" >> $GITHUB_ENV
-        echo "RUBY_ARCH=${{ matrix.arch }}" >> $GITHUB_ENV
     - name: Set up environment (Windows-specific)
       if: ${{ startswith(matrix.os, 'windows') }}
       run: ./scripts/windows_setup_vcvars.bat
