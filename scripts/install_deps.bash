@@ -11,3 +11,7 @@ if is_linux; then
         echo_run sudo apt-get install gcc-multilib g++-multilib
     fi
 fi
+
+if is_macos; then
+    brew install automake
+fi
