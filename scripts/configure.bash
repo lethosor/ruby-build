@@ -23,7 +23,7 @@ elif is_macos; then
 fi
 
 if is_unix; then
-    echo_run autoconf
+    echo_run autoreconf --install
     echo_run ./configure --prefix="$RUBY_PREFIX" --disable-rubygems --enable-shared
 else
     echo_run ./win32/configure.bat --disable-rubygems
