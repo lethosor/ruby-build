@@ -23,7 +23,7 @@ jobs:
       run:
         shell: bash
     env:
-      RUBY_VERSION: 2.7.2
+      RUBY_VERSION: 2.7.3
     steps:
     - name: Set up environment
       run: |
