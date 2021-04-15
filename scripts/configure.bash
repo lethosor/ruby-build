@@ -23,7 +23,8 @@ elif is_macos; then
 fi
 
 if is_unix; then
-    rm configure
+    echo_run rm configure
+    echo_run autoupdate configure.ac
     echo_run autoreconf --install
     echo_run ./configure --prefix="$RUBY_PREFIX" --disable-rubygems --enable-shared
 else
